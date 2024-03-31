@@ -53,20 +53,3 @@ export default {
   },
 };
 </script>
-
-<style>
-html {
-  height: 100%;
-}
-
-#layout {
-  background-image: url(/src/assets/blob-scene-haikei.svg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-}
-#header, #footer {
-  background-color: #0C1D36;
-}
-</style>

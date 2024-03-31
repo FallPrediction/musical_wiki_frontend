@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-page q-pa-lg">
     <div class="row justify-center">
-      <div class="col-9 q-px-xl q-pb-xl bg-dark">
+      <div class="col-9 q-px-xl q-pb-xl bg-brand">
         <h4>演員</h4>
         <div class="row items-start q-col-gutter-md">
           <div
