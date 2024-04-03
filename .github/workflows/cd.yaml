@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "^20"
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install Quasar CLI
+        run: |
+          npm install
+          npm i -g @quasar/cli
+
+      - name: Build
+        run: quasar build
+
+      - name: Compression
+        run: tar -czvf ${{ vars.CODEDEPLOY_DEV_GROUP }}.tgz dist/spa appspec.yml deployments/codeDeploy/scripts
+
+      - name: Upload to S3
+        run: aws s3 cp ./${{ vars.CODEDEPLOY_DEV_GROUP }}.tgz s3://${{ vars.S3_BUCKET }}/${{ vars.CODEDEPLOY_DEV_GROUP }}.tgz
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION  }}
+
+      - name: Deploy to EC2
+        run: |
+          aws deploy create-deployment \
+          --application-name ${{ vars.APP_NAME }} \
+          --deployment-config-name CodeDeployDefault.OneAtATime \
+          --deployment-group-name ${{ vars.CODEDEPLOY_DEV_GROUP }} \
+          --s3-location bucket=${{ vars.S3_BUCKET }},bundleType=tgz,key=${{ vars.CODEDEPLOY_DEV_GROUP }}.tgz
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION  }}
