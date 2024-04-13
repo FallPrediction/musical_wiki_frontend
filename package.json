@@ -2,7 +2,7 @@
   "name": "musical-wiki",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "productName": "Musical Wiki",
   "author": "ElizabethHuang <lizne6z0@gmail.com>",
   "private": true,
   "scripts": {
