@@ -13,6 +13,7 @@
       </q-toolbar>
 
       <q-tabs align="left">
+        <q-route-tab to="/" label="首頁" />
         <q-route-tab to="/actors" label="演員" />
       </q-tabs>
     </q-header>
