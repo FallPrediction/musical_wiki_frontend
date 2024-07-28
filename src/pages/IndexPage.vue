@@ -3,8 +3,7 @@
     <div class="row justify-center">
       <div class="col-9 q-px-xl q-pb-xl bg-brand">
         <h4>你好！</h4>
-        <p>這是一個音樂劇的wiki</p>
-        <p>還有一卡車功能還沒做，目前的功能有：</p>
+        <p>這是一個音樂劇的wiki目前的功能有：</p>
         <ul>
           <li>演員列表</li>
           <li>演員的出演作品</li>
