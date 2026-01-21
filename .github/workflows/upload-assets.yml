@@ -28,11 +28,11 @@ jobs:
         run: quasar build
 
       - name: Compression
-        run: tar -czvf ${{ github.repository }}-${{ github.event.release.tag_name }}.tgz dist/spa
+        run: tar -czvf ${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.tgz dist/spa
 
       - name: Upload to Release Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ github.repository }}-${{ github.event.release.tag_name }}.tgz
+          files: ${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.tgz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
