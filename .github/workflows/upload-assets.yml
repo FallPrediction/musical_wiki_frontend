@@ -1,0 +1,38 @@
+name: Build & Upload Assets
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "^20"
+
+      - name: Install Quasar CLI
+        run: |
+          npm install
+          npm i -g @quasar/cli
+
+      - name: Build
+        run: quasar build
+
+      - name: Compression
+        run: tar -czvf ${{ github.GITHUB_REPOSITORY }}-${{ github.event.release.tag_name }}.tgz dist/spa
+
+      - name: Upload to Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ github.GITHUB_REPOSITORY }}-${{ github.event.release.tag_name }}.tgz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
