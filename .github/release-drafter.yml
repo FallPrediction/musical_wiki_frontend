@@ -1,0 +1,57 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+template: |
+  # What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
+
+categories:
+  - title: 🎊 Major Update
+    labels:
+      - major
+  - title: 🚀 Feature
+    labels:
+      - feat
+  - title: 🛠️ Bug Fix
+    labels:
+      - fix
+  - title: 🧺 Chore
+    labels:
+      - chore
+  - title: ✨ Refactor
+    labels:
+      - refactor
+  - title: 📝 Test
+    labels:
+      - test
+change-template: '- $TITLE (@$AUTHOR) in #$NUMBER'
+version-resolver:
+  major:
+    labels:
+      - major
+  minor:
+    labels:
+      - feat
+  patch:
+    labels:
+      - '*'
+  default: patch
+
+autolabeler:
+  - label: 'feat'
+    title:
+      - '/^feat(:|\()/i'
+  - label: 'fix'
+    title:
+      - '/^fix(:|\()/i'
+  - label: 'chore'
+    title:
+      - '/^chore(:|\()/i'
+  - label: 'refactor'
+    title:
+      - '/^refactor(:|\()/i'
+  - label: 'test'
+    title:
+      - '/^test(:|\()/i'
